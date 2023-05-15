@@ -8,7 +8,7 @@ const CartWidget= () => {
     1+
           <span class="visually-hidden">unread messages</span>
         </span>
-      </a>
+      </a> 
   )
 }
 
