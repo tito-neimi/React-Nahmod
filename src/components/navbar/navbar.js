@@ -21,7 +21,7 @@ const navbar = () => {
           <a className="nav-link text-light " href="#">Contacto</a>
         </li>
       </ul>
-        <CartWidget/>
+        <Link to={"/cart"}><CartWidget/></Link>
     </div>
   </div>
 </nav>

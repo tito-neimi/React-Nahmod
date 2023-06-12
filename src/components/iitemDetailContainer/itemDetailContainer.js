@@ -1,28 +1,38 @@
 
 import { useEffect, useState } from "react"
-import { getProductById } from "../../promises"
 import { ItemDetail } from "../itemDetail/itemDetail"
 import { useParams } from "react-router-dom"
+import Filtros from "../filtros/filtros"
+import { db } from "../../firebase/firebaseConfig"
+import {  doc, getDoc } from "firebase/firestore"
 
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState(null)
   const {itemId} = useParams()
 
-useEffect(() => {
-  getProductById(itemId)
-    .then(response => {
-      setProduct(response)
-    })
-    .catch(error => {
-      console.error(error)
-    })
-}, [itemId])
+
+  useEffect(() => {
+   const docRef = doc(db, 'products', itemId)
+
+   getDoc(docRef)
+   .then(response => {
+    const data = response.data()
+    const productAdapapted = {id: response.id, ...data}
+    setProduct(productAdapapted)
+   })
+   .catch(error =>{
+    console.log(error)
+   })
+  }, [itemId])
 
   return(
-    <div className="itemDetailContainer d-flex justify-content-center">
+    <>
+      <Filtros/>
+      <div className="itemDetailContainer d-flex justify-content-center">
       <ItemDetail {...product}/>
-    </div>
+      </div>
+    </>
   )
 }
 

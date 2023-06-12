@@ -4,7 +4,6 @@ const ItemCount = ({max,inicial,onAddCarrito}) => {
   const [cantidad, setCantidad] = useState(inicial)
 
   const increment = () =>{
-    console.log(cantidad)
     if (max > cantidad) {
       setCantidad(cantidad+1);
     }
